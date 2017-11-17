@@ -1,1 +1,54 @@
 \section{Evaluating the CloudLightning simulator}
+
+To quantify the performance of a cloud simulator, different metrics can be used. Among the most important requirements, that can be used to directly measure the efficiency of the CloudLightning simulator are:
+
+\begin{itemize}
+\item Computational efficiency
+\item Service delivery efficiency
+\item Power consumption
+\item Organization and management of resources at scale
+\end{itemize}
+
+\subsection{Computational efficiency}
+
+Evaluating the Computational efficiency can be performed by comparison to traditional centralized management approach of time required for executing a fixed set of tasks by prescribed resources. The centralized management approach follows a first fit approach. Moreover, the strategies for positioning the tasks onto resources should be also evaluated with respect to execution time. Additional parameters for evaluation include utilization of active resources.
+
+\subsection{Service delivery efficiency}
+
+Evaluating the service delivery involves measuring the requests that have been satisfied or rejected. Moreover, the number of Service Level Agreement (SLA) violations should be measured, since they directly affect user experience. These results should be compared to findings from performing a simulation with the traditional approach with fixed input data and prescribed resources.
+
+\subsection{Power consumption}
+
+The evaluation of power consumption can be performed by comparative measuring of power consumption of Cloud nodes, based on different local strategies, with the traditional approach. The set of tasks and resources should be fixed for both experiments.
+
+
+\subsection{Organization and management of resources at scale}
+
+The CloudLightning resource management approach is distributed by design, thus more scalable in terms of number and type of resources compared to the traditional centralized approach. Distributed approaches for management and organization present increased scalability due to the reduced search space of underlying resources. Thus, this requirement is satisfied by design.
+
+
+The aforementioned four axes directly affect the choice of a simulator design and dictate its requirements. The simulator should be able to handle millions of heterogeneous resources and perform simulations in a timely fashion, allowing exhaustive experimentation to be conducted. Handling resources at the aforementioned scale outlines specific requirements and design decisions.
+
+
+The simulator should be designed to be parallel and be able to execute on parallel distributed systems: Parallelization of the simulator is crucial since the simulated resources should be in the order of millions. Extant simulators for large scale resources are predominantly based on Discrete Event Simulation (DES), neglecting small scale phenomena. Parallel DES simulators have been used for simulating homogeneous resources in order of hundreds of thousands and up to millions of events. Thus, they are not suitable for the order that will be used in CloudLightning.
+
+The simulator should be able to produce outputs that can be used to assess the aforementioned axes - requirements: Improved service delivery can be measured in terms of number of SLA violations. Another metric is the number of requests accepted or rejected by the system. Computational efficiency can be measured in terms of time and energy required to execute a fixed number of tasks under a prescribed number of resources. Moreover, various strategies present in CL should be evaluated. Improved power consumption can be directly measured from the power consumption of underlying resources using prescribed models. These outputs should be compared to traditional approaches with and without the support for heterogeneous resources, since modern Cloud environments are predominantly homogeneous. Efficient organization and management of underlying resources can be evaluated in terms of the number of messages required to manage and organize a centrally managed Cloud system compared to the CL approach.
+
+The simulator should be able to handle heterogeneous resources: Native support for heterogeneous resources is one of the core requirements of the CL system. Heterogeneous hardware is natively supported by design of the system. Comparisons with the traditional approach canbe performed in terms of VM positioning onto resources, since in the traditional approach the choice of hardware is made by the user, while in the CL approach the choice of hardware is made by the system.
+
+The simulator should support self-organizing and self-management components and strategies: The SOSM components are dynamical components, which can change state or logical architecture. DES type simulators are not designed to handle such components. Thus, the architecture of the simulator should be chosen such that dynamical components can be implemented and events be decoupled from inputs.
+
+The models used in the simulator should adequately describe the functionality and characteristics of a Cloud node: The DES type simulators create a list of events and execute the list on predefined resources. The outputs are primarily used to assess scheduling policies, power consumption of underlying resources, quality of service, etc. Small scale phenomena such as exchange of packets or network protocols are neglected. Moreover, in extant simulators network and network attached storage (block storage) is treated as another resource, such as memory. In depth treatment requires packet level simulations, that are usually performed by dedicated network or network storage simulators. The applications are primarily described in terms of Millions of Instructions (MI) and computational capability of the underlying hardware is measured in MIPS. The amount of instructions are usually computed from scaling and performance diagrams for certain applications. The behavior of the underlying hardware as well as the simulated applications should be close to actual metrics derived from hardware measurements. Extant simulators study the coherence between actual and simulated results by comparison to results obtained on certain hardware. Then, refinement is performed to the simulation models. The refined model of the Cloud node is then extrapolated to form the data center. This approach is adopted by various researchers in (Calheiros et al. 2011; Casanova et al. 2014).
+
+Extensible design of the simulator: The simulator should be designed to extensible in order to be able to include new strategies, models and types of hardware. For the CL system and the use cases involved, scaling and performance diagrams should be produced. These diagrams should be compared to simulated results for one or multiple heterogeneous Cloud nodes.  These results will be extrapolated to form the CL system. Moreover, the acquired trace data will be used to form a traditional Cloud system with the same underlying resources. By creating two identical, in terms of hardware, environments useful conclusions can be derived according to the four axes-requirements of the Cloudlightning system compared to the traditional approach in various scales and with varying parameters. With the above in mind, the basic metrics, on which evaluation will be conducted, are:
+
+\begin{itemize}
+\item Number of accepted tasks
+\item Number of rejected tasks
+\item Average utilization of resources (CPU, Memory, Network, Storage)
+\item Energy consumption (MWh)
+\item Running time of all tasks
+\item Number of messages to organize-manage the system
+\end{itemize}
+
+These results will be analysed and compared between the two approaches to produce useful conclusions and provide insight for future work.
