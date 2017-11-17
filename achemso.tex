@@ -26,40 +26,106 @@
 % loaded by achemso, and provides automatic moving of superscript
 % citations after punctuation.
 
-\documentclass[
-%journal=ancac3, % for ACS Nano
-%journal=acbcct, % for ACS Chem. Biol.
-journal=jacsat, % for undefined journal
-manuscript=article]{achemso}
+\documentclass[12pt]{article}
 
-\usepackage[version=3]{mhchem} % Formula subscripts using \ce{}
+% Users of the {thebibliography} environment or BibTeX should use the
+% scicite.sty package, downloadable from *Science* at
+% www.sciencemag.org/about/authors/prep/TeX_help/ .
+% This package should properly format in-text
+% reference calls and reference-list numbers.
 
-\newcommand*{\mycommand}[1]{\texttt{\emph{#1}}}
+\usepackage{scicite}
 
-\author{Christos K. Filelis-Papadopoulos}
-\affiliation[]
-{Democritus University of Thrace, Department of Electrical and Computer Engineering}
-\email{cpapad@ee.duth.gr}
-\author{Charalampos S. Kouzinopoulos}
-\author{Georgios Sikotidis}
-\author{Dimitrios Tzovaras}
-\affiliation[]
-{Information Technologies Institute, Centre for Research and Technology Hellas, Thessaloniki, Greece}
-\email{{kouzinopoulos,gsikotidis,dimitrios.tzovaras}@iti.gr}
+% Use times if you have the font installed; otherwise, comment out the
+% following line.
 
+\usepackage{times}
 
+% The preamble here sets up a lot of new/revised commands and
+% environments.  It's annoying, but please do *not* try to strip these
+% out into a separate .sty file (which could lead to the loss of some
+% information when we convert the file to other formats).  Instead, keep
+% them in the preamble of your main LaTeX source file.
 
 
-\title[\texttt{achemso} evaluation]
-{An evaluation of the CloudLightning simulator}
+% The following parameters seem to provide a reasonable page setup.
+
+\topmargin 0.0cm
+\oddsidemargin 0.2cm
+\textwidth 16cm
+\textheight 21cm
+\footskip 1.0cm
+
+
+%The next command sets up an environment for the abstract to your paper.
+
+\newenvironment{sciabstract}{%
+\begin{quote} \bf}
+{\end{quote}}
+
+
+% If your reference list includes text notes as well as references,
+% include the following line; otherwise, comment it out.
+
+\renewcommand\refname{References and Notes}
+
+% The following lines set up an environment for the last note in the
+% reference list, which commonly includes acknowledgments of funding,
+% help, etc.  It's intended for users of BibTeX or the {thebibliography}
+% environment.  Users who are hand-coding their references at the end
+% using a list environment such as {enumerate} can simply add another
+% item at the end, and it will be numbered automatically.
+
+\newcounter{lastnote}
+\newenvironment{scilastnote}{%
+\setcounter{lastnote}{\value{enumiv}}%
+\addtocounter{lastnote}{+1}%
+\begin{list}%
+{\arabic{lastnote}.}
+{\setlength{\leftmargin}{.22in}}
+{\setlength{\labelsep}{.5em}}}
+{\end{list}}
+
+%\author{Christos K. Filelis-Papadopoulos}
+%Democritus University of Thrace, Department of Electrical and Computer Engineering
+%\email{cpapad@ee.duth.gr}
+%\author{Charalampos S. Kouzinopoulos}
+%\author{Georgios Sikotidis}
+%\author{Dimitrios Tzovaras}
+%\affiliation[]
+%{Information Technologies Institute, Centre for Research and Technology Hellas, Thessaloniki, Greece}
+%\email{{kouzinopoulos,gsikotidis,dimitrios.tzovaras}@iti.gr}
+
+\title{An evaluation of the CloudLightning simulator}
+
+\author
+{Christos K. Filelis-Papadopoulos,$^{1\ast}$ Charalampos S. Kouzinopoulos,$^{2}$\\
+Georgios Sikotidis,$^{2}$ Dimitrios Tzovaras$^{2}$\\
+\\
+\normalsize{$^{1}$Democritus University of Thrace, Department of Electrical and Computer Engineering,}\\
+\normalsize{cpapad@ee.duth.gr}\\
+\normalsize{$^{2}$Information Technologies Institute, Centre for Research and Technology Hellas,}\\
+\normalsize{\{kouzinopoulos,gsikotidis,dimitrios.tzovaras\}@iti.gr}\\
+\\
+}
+
+
+
+\date{}
 
 \begin{document}
+
+\baselineskip24pt
+
+% Make the title.
+
+\maketitle
+
+% Place your abstract within the special {sciabstract} environment.
 
 \begin{abstract}
 Researching and analyzing complex large-scale cloud environments is a challenging task that can be measured only through their simulation. For this reason, the CloudLightning simulation framework was developed as part of the CloudLightning project and funded by the European Commission’s Horizon 2020 Programme for Research and Innovation. The framework, a generalized and extensible simulator that is used to simulate cloud infrastructures, is inherently parallel; it is written in the C++ language using modern C++11 features and employs the OpenMP and MPI APIs to achieve increased scalability. Instead of initializing a set of tasks for execution on the simulated cloud, the simulator uses a time-advancing loop that allows for changes in the status of the system during each time step, rather than between time steps, as with DES type simulations. This paper evaluates the effectiveness of the CloudLightning simulator on four axes; the service delivery system, the computational efficiency, the power consumption and the organization and management of resources at scale.
 \end{abstract}
-
-
 
 
 \include{Introduction}
@@ -83,23 +149,11 @@ Aenean consequat turpis eu nunc luctus sollicitudin. Mauris ut est nisl, nec ull
 New float types are automatically set up by the class file.  The
 means graphics are included as follows (\ref{sch:example}).  As
 illustrated, the float is ``here'' if possible.
-\begin{scheme}
-  \includegraphics{lion.png}
-  \caption{An example graphics}
-  \label{sch:example}
-\end{scheme}
-
-
-The example file also loads the \textsf{mhchem} package, so
-that formulas are easy to input: \texttt{\textbackslash
-\ce\{H2SO4\}} gives \ce{H2SO4}.
-
-The use of new commands should be limited to simple things which will
-not interfere with the production process.  For example,
-\texttt{\textbackslash mycommand} has been defined in this example,
-to give italic, monospaced text: \mycommand{some text}.
-
-Example reference:~\cite{Einstein}.
+%\begin{scheme}
+%  \includegraphics{lion.png}
+%  \caption{An example graphics}
+%  \label{sch:example}
+%\end{scheme}
 
 
 
