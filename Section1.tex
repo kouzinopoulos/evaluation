@@ -1,6 +1,6 @@
 \section{Evaluating the CloudLightning simulator}
 
-To quantify the performance of a cloud simulator, different metrics can be used. Among the most important requirements, that can be used to directly measure the efficiency of the CloudLightning simulator are:
+To quantify the performance of the CloudLightning simulator, different metrics can be used. Some of the most important requirements that can be used to directly measure the efficiency of a cloud simulator are:
 
 \begin{itemize}
 \item Computational efficiency
@@ -11,11 +11,22 @@ To quantify the performance of a cloud simulator, different metrics can be used.
 
 \subsection{Computational efficiency}
 
-Evaluating the Computational efficiency can be performed by comparison to traditional centralized management approach of time required for executing a fixed set of tasks by prescribed resources. The centralized management approach follows a first fit approach. Moreover, the strategies for positioning the tasks onto resources should be also evaluated with respect to execution time. Additional parameters for evaluation include utilization of active resources.
+The computational efficiency of a cloud simulator can be defined as the total time required to execute a fixed set of tasks by prescribed resources. CloudLightning follows a first fit approach, where upon the reception of a computational task, the first resource that is capable enough to satisfy the request is selected. Additional parameters for evaluation include the utilization of active resources.
+
+
+
+% can be performed by comparison to traditional centralized management approach of  for executing . The centralized management approach follows a first fit approach. Moreover, the strategies for positioning the tasks onto resources should be also evaluated with respect to execution time.
 
 \subsection{Service delivery efficiency}
 
-Evaluating the service delivery involves measuring the requests that have been satisfied or rejected. Moreover, the number of Service Level Agreement (SLA) violations should be measured, since they directly affect user experience. These results should be compared to findings from performing a simulation with the traditional approach with fixed input data and prescribed resources.
+The requests for the computation of tasks that are received by the task allocation system can be either satisfied, when processed by a given resource, or rejected, when no capable resource exists in the system or when all capable resources are occupied. The service delivery efficiency $eff_{service}$ is then defined as the ratio of the satisfied requests over the total number of requests:
+
+\begin{equation}
+eff_{service} = \frac{request_{satisfied}}{request_{total}}
+\end{equation}
+
+Another measure for the efficiency of the service delivery is the number of Service Level Agreement (SLA) violations. An SLA is the contract between different signatory parties, i.e.
+the cloud service provider and the service consumers that defines their obligations, such as a guarantee of a particular state of SLA parameters in a given time period or an action guarantee, i.e. the promise to do something in a defined situation~\cite{ludwig2003web}. Moreover, it defines the expected level of service, that includes metrics such as throughput or response time. A violation of the SLA can occur when a service level guarantee was not met by a signatory party, upon which an action guarantee should be activated for the service provider to take action. Since SLA violations directly affect the user experience, their number should be measured for a cloud simulator and compared to findings from other simulators.
 
 \subsection{Power consumption}
 
@@ -26,9 +37,7 @@ The evaluation of power consumption can be performed by comparative measuring of
 
 The CloudLightning resource management approach is distributed by design, thus more scalable in terms of number and type of resources compared to the traditional centralized approach. Distributed approaches for management and organization present increased scalability due to the reduced search space of underlying resources. Thus, this requirement is satisfied by design.
 
-
 The aforementioned four axes directly affect the choice of a simulator design and dictate its requirements. The simulator should be able to handle millions of heterogeneous resources and perform simulations in a timely fashion, allowing exhaustive experimentation to be conducted. Handling resources at the aforementioned scale outlines specific requirements and design decisions.
-
 
 The simulator should be designed to be parallel and be able to execute on parallel distributed systems: Parallelization of the simulator is crucial since the simulated resources should be in the order of millions. Extant simulators for large scale resources are predominantly based on Discrete Event Simulation (DES), neglecting small scale phenomena. Parallel DES simulators have been used for simulating homogeneous resources in order of hundreds of thousands and up to millions of events. Thus, they are not suitable for the order that will be used in CloudLightning.
 
